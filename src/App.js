@@ -1,8 +1,13 @@
 import './App.css';
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Start from './components/start';
 
+
 function App() {
+
+  
+  const [mode, setMode ] = useState('upper');
+
 
 const LetterFactory = (letter) => {
   return { letter,
@@ -11,7 +16,7 @@ const LetterFactory = (letter) => {
   }
 };
 
-let alphabet = [
+const alphabet = [
   LetterFactory('A'), LetterFactory('B'), LetterFactory('C'), LetterFactory('D'), LetterFactory('E'),
   LetterFactory('F'), LetterFactory('G'), LetterFactory('H'), LetterFactory('I'), LetterFactory('J'),
   LetterFactory('K'), LetterFactory('L'), LetterFactory('M'), LetterFactory('N'), LetterFactory('O'),
@@ -29,12 +34,14 @@ function shuffleArray(alphabet) {
   return shuffledArray;
 }
 
-const countdownArr = shuffleArray(alphabet);
 
 const readLetter = (letter) => {
   const audio = new Audio(process.env.PUBLIC_URL + letter.sound);
   audio.play();
 }
+
+let shuffledAlphabet = shuffleArray(alphabet);
+let countdownArr = shuffleArray(alphabet);
 
 let currentLetter;
 
@@ -53,31 +60,45 @@ let countdown = () => {
 
 const countdownAdvances = countdown();
 
-
-
-
-let shuffledAlphabet = shuffleArray(alphabet);
-console.table(shuffledAlphabet);
-
 const clickLetter = (letter, event) => {
+  console.log(letter);
+  console.log('current letter: ' + currentLetter);
   if (letter === currentLetter) {
     event.target.classList.add('correct');
     countdownAdvances();
   }
 }
 
+const logCL = () => {
+  console.log(currentLetter)
+}
+useEffect(() => {
+  console.log('real current letter is ' + currentLetter)
+}, []);
 
 
   return (
     <div id='letterContainer'>
-      <Start countdownAdvances={countdownAdvances}/>
+      <Start countdownAdvances={countdownAdvances} setMode={setMode} />
+      <button onClick={logCL}>Current Letter</button>
 
       {shuffledAlphabet.map((item) => {
+
+        if (mode === 'upper') {
         return (
           <div className='letterBtn' onClick={(event) => clickLetter(item.letter, event)}>
             {item.letter}
           </div>)
-      })}
+        }
+        
+        if (mode === 'lower') {
+          return (
+            <div className='letterBtn' onClick={(event) => clickLetter(item.letter, event)}>
+              {item.letter.toLowerCase()}
+            </div>)
+          }
+
+        })}
     </div>
   );
 }

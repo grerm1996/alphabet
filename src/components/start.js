@@ -10,9 +10,17 @@ const Start = (props) => {
     }
 
 
+    const lowerStartGame = () => {
+        props.setMode('lower');
+        setTimeout(startGame, 500)
+    }
+
+    
+
     return (
         <div id='start'>
-            <button id='startBtn' onClick={startGame}>Start</button>
+            <button id='startBtn' onClick={startGame}>Upper Case</button>
+            <button id='startBtn' onClick={lowerStartGame}>Lower Case</button>
         </div>
     )
 
