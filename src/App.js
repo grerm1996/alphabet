@@ -1,12 +1,12 @@
 import './App.css';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import Start from './components/start';
 
 
 function App() {
 
   
-  const [mode, setMode ] = useState('upper');
+  const [mode, setMode ] = useState('startMenu');
 
 
 const LetterFactory = (letter) => {
@@ -69,34 +69,33 @@ const clickLetter = (letter, event) => {
   }
 }
 
-const logCL = () => {
-  console.log(currentLetter)
-}
 useEffect(() => {
-  console.log('real current letter is ' + currentLetter)
-}, []);
-
+  if (mode==='startMenu'){
+    return
+  } else {
+    countdownAdvances();
+  }
+}, [mode]);
 
   return (
     <div id='letterContainer'>
       <Start countdownAdvances={countdownAdvances} setMode={setMode} />
-      <button onClick={logCL}>Current Letter</button>
 
       {shuffledAlphabet.map((item) => {
-
-        if (mode === 'upper') {
-        return (
-          <div className='letterBtn' onClick={(event) => clickLetter(item.letter, event)}>
-            {item.letter}
-          </div>)
-        }
-        
         if (mode === 'lower') {
           return (
             <div className='letterBtn' onClick={(event) => clickLetter(item.letter, event)}>
               {item.letter.toLowerCase()}
             </div>)
           }
+        else {
+        return (
+          <div className='letterBtn' onClick={(event) => clickLetter(item.letter, event)}>
+            {item.letter}
+          </div>)
+        }
+        
+
 
         })}
     </div>
