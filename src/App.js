@@ -49,7 +49,7 @@ let countdown = () => {
   let i=-1;
   return () => {
     i++;
-    if (i === 25) {
+    if (i === 26) {
       alert("game over!")
     } else currentLetter = countdownArr[i].letter;
     setTimeout(readLetter(countdownArr[i]), 1000);
