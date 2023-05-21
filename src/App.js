@@ -60,14 +60,21 @@ let countdown = () => {
 
 const countdownAdvances = countdown();
 
+
 const clickLetter = (letter, event) => {
   console.log(letter);
   console.log('current letter: ' + currentLetter);
   if (letter === currentLetter) {
     event.target.classList.add('correct');
     countdownAdvances();
+  } else {
+    event.target.classList.add('shake')
+    setTimeout(() => {
+      event.target.classList.remove('shake');
+    }, 300);
   }
-}
+};
+
 
 const repeat = () => {
   const audio = new Audio(process.env.PUBLIC_URL + '/sounds/' + currentLetter + ".wav");

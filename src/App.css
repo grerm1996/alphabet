@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Outfit:wght@500&display=swap');
 
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
 body {
   margin: 0;
 }
@@ -61,7 +69,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10em;
+  font-size: 11vw;
   height: 9vw;
   width: 11vw;
   margin: 10px;
@@ -77,4 +85,8 @@ body {
 
 .correct {
   background-color: green;
+}
+
+.shake {
+  animation: 0.3s tilt-shaking;
 }
