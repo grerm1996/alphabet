@@ -88,5 +88,54 @@ body {
 }
 
 .shake {
-  animation: 0.3s tilt-shaking;
+  animation: 0.2s tilt-shaking;
+}
+
+#gameover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+}
+
+#gameoverPopup {
+  display: flex;
+  flex-direction: column !important;
+  background-color: green;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 2vw
+
+}
+
+#restartBtn {
+
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color,border-color,color,box-shadow,filter;
+  transition-duration: .3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 16px 14px 18px;
+  color: #fff;
+  background-color: #15883e;
+  height: 48px;
+  }
+
+  #restartBtn:hover{
+    background-color: #1db954;
 }

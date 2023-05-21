@@ -1,0 +1,16 @@
+#gameover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+#gameoverPopup {
+    display: flex;
+    direction: column;
+    background-color: green;
+
+}

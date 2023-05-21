@@ -2,12 +2,29 @@ import './App.css';
 import {useState, useEffect, useRef} from 'react';
 import Start from './components/start';
 import Replay from '@mui/icons-material/Replay';
+import GameOver from './components/gameover';
+import { set } from 'date-fns/esm';
 
 function App() {
 
   
   const [mode, setMode ] = useState('startMenu');
+  const [startTime, setStartTime ] = useState('');
 
+  let timeRecord;
+
+  let startTimer = () => {
+    setStartTime(Date.now());
+    console.log('timer start')
+    console.log(startTime);
+  }
+
+  function reportTime() {
+    const endTime = Date.now();
+    timeRecord = (endTime - startTime)/1000;
+    console.log(timeRecord);
+    console.log(startTime);
+  }
 
 const LetterFactory = (letter) => {
   return { letter,
@@ -44,20 +61,26 @@ let shuffledAlphabet = shuffleArray(alphabet);
 let countdownArr = shuffleArray(alphabet);
 
 let currentLetter;
+let i=-1;
 
 let countdown = () => {
-  let i=-1;
-  return () => {
-    i++;
-    if (i === 26) {
-      alert("game over!")
-    } else currentLetter = countdownArr[i].letter;
-    setTimeout(readLetter(countdownArr[i]), 1000);
-    console.log('current letter: ' + countdownArr[i].letter);
-    console.log('current letter: ' + currentLetter)
-  }
-}
 
+    return () => {
+      i++;
+      if (i === 26) {
+        endGame();
+      } else {
+        currentLetter = countdownArr[i]?.letter;
+        setTimeout(() => {
+          if (i < 26) {
+            readLetter(countdownArr[i]);
+          }
+        }, 1000);
+      }
+      console.log('current letter: ' + countdownArr[i]?.letter);
+      console.log('current letter: ' + currentLetter);
+    };
+  };
 const countdownAdvances = countdown();
 
 
@@ -66,6 +89,9 @@ const clickLetter = (letter, event) => {
   console.log('current letter: ' + currentLetter);
   if (letter === currentLetter) {
     event.target.classList.add('correct');
+    reportTime();
+    let congrats = document.getElementById('congrats');
+    congrats.textContent = `Congratulations! Your time is ${timeRecord} seconds.`;
     countdownAdvances();
   } else {
     event.target.classList.add('shake')
@@ -76,22 +102,53 @@ const clickLetter = (letter, event) => {
 };
 
 
+
+
 const repeat = () => {
   const audio = new Audio(process.env.PUBLIC_URL + '/sounds/' + currentLetter + ".wav");
   audio.play();
 }
 
 useEffect(() => {
-  if (mode==='startMenu'){
+  if (mode==='startMenu' || mode==='gameover'){
     return
   } else {
     countdownAdvances();
   }
 }, [mode]);
 
+const gameoverScreen = document.getElementById('gameover');
+
+const endGame = () => {
+  gameoverScreen.style.display = 'flex';
+  
+}
+
+const replay = () => {
+  gameoverScreen.style.display = 'none';
+  const boxes = document.getElementsByClassName('letterBtn');
+  Array.from(boxes).forEach(box => {
+    box.classList.remove('correct');
+  });
+  setMode('startMenu');
+}
+
+
+
   return (
     <div id='letterContainer'>
-      <Start countdownAdvances={countdownAdvances} setMode={setMode} />
+
+      {mode === 'startMenu' && (
+        <Start countdownAdvances={countdownAdvances} setMode={setMode} startTimer={startTimer}/>
+      )}
+      
+      
+      <div id='gameover'>
+            <div id='gameoverPopup'>
+                <p id='congrats'></p>
+                <button id='restartBtn' onClick={replay}>Play again?</button>
+            </div>
+      </div>
 
       {shuffledAlphabet.map((item) => {
         if (mode === 'lower') {

@@ -2,21 +2,24 @@ import './start.css';
 
 const Start = (props) => {
 
-    let startGame = () => {
+/*     let startGame = () => {
         let start = document.getElementById('start');
         start.style.display = 'none';
         document.body.style.overflow = 'auto'; // remove body overflow to enable scrolling
-    }
+        
+    } */
 
 
     const lowerStartGame = () => {
         props.setMode('lower');
-        setTimeout(() => startGame(), 500);
+        props.startTimer();
+        /* setTimeout(() => startGame(), 500); */
       };
 
       const upperStartGame = () => {
         props.setMode('upper');
-        setTimeout(() => startGame(), 500);
+        props.startTimer();
+        /* setTimeout(() => startGame(), 500); */
       };
 
     
