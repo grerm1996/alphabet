@@ -48,17 +48,19 @@ body {
   bottom: 0;
   position: fixed;
   width: 95%;
-  height: 11vw
+  height: 11vw;
+  pointer-events: none;
 }
 
 #redoContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  pointer-events: auto;
 }
 
 .letterBtn:hover {
-  background-color: whitesmoke
+  background-color: rgb(224, 217, 217)
 }
 
 .letterBtn.correct:hover {
