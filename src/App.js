@@ -1,7 +1,7 @@
 import './App.css';
 import {useState, useEffect, useRef} from 'react';
 import Start from './components/start';
-
+import Replay from '@mui/icons-material/Replay';
 
 function App() {
 
@@ -69,6 +69,11 @@ const clickLetter = (letter, event) => {
   }
 }
 
+const repeat = () => {
+  const audio = new Audio(process.env.PUBLIC_URL + '/sounds/' + currentLetter + ".wav");
+  audio.play();
+}
+
 useEffect(() => {
   if (mode==='startMenu'){
     return
@@ -94,10 +99,8 @@ useEffect(() => {
             {item.letter}
           </div>)
         }
-        
-
-
         })}
+        <div id='redoMetaContainer'> <div id='redoContainer'> < Replay onClick={repeat} className='redo'/> <p id='redoLabel'>Replay sound</p> </div> </div>
     </div>
   );
 }

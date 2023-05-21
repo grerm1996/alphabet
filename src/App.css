@@ -1,11 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Outfit:wght@500&display=swap');
 
+body {
+  margin: 0;
+}
+
 #letterContainer {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
   width: 100%;
 
+}
+
+.redo {
+  transform: scale(6);
+  transition: transform ease 0.5s;
+  
+}
+
+.redo:active {
+  transform: scale(5.5);
+}
+
+.redo:hover {
+  cursor: pointer;
+}
+
+#redoLabel {
+  color: green;
+  font-weight: 900;
+  margin-top: 45px;
+}
+
+#redoMetaContainer {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex-grow: 1;
+  bottom: 0;
+  position: fixed;
+  width: 95%;
+  height: 11vw
+}
+
+#redoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.letterBtn:hover {
+  background-color: whitesmoke
+}
+
+.letterBtn.correct:hover {
+  background-color: green;
 }
 
 .letterBtn {
